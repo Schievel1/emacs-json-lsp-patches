@@ -1,0 +1,9 @@
+#+title: Readme
+
+These are patches I use to put in ~/etc/portage/patches/app-editors/emacs-xxxx~
+(e.g. ~/etc/portage/patches/app-editors/emacs-29.1.9999~)
+
+Patches are tested with the version of emacs that is the directory name in this repo
+
+To see what this does:
+https://github.com/emacs-lsp/emacs/commits/json-rpc
