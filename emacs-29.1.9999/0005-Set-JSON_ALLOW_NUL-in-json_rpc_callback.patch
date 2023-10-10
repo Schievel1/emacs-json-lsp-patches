@@ -1,0 +1,29 @@
+From 94db9ad1e2ec5748239ff00ff4f26f392f81f70d Mon Sep 17 00:00:00 2001
+From: Sebastian Sturm <s.sturm@arkona-technologies.de>
+Date: Thu, 8 Dec 2022 20:40:54 +0100
+Subject: [PATCH 5/7] Set JSON_ALLOW_NUL in json_rpc_callback
+
+on Emacs 29, this flag is already set in json-parse-string
+and json-parse-buffer, and will allow the native json rpc
+thread to work with those language servers that sometimes
+embed null bytes in their output
+---
+ src/json.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/json.c b/src/json.c
+index ed7b7a632e5..429fc61e47c 100644
+--- a/src/json.c
++++ b/src/json.c
+@@ -1288,7 +1288,7 @@ json_rpc_callback (void *arg)
+ 	  if (!param->done)
+ 	    {
+ 	      msg[content_length] = '\0';
+-	      param->message = json_loads (msg, JSON_DECODE_ANY, &param->error);
++	      param->message = json_loads (msg, JSON_DECODE_ANY | JSON_ALLOW_NUL, &param->error);
+ 	      free (msg);
+ 	    }
+ 	}
+-- 
+2.41.0
+
